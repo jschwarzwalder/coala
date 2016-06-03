@@ -56,12 +56,14 @@ def load_config_file(filename, log_printer, silent=False):
     except FileNotFoundError:
         if not silent:
             if os.path.basename(filename) == Constants.default_coafile:
-                log_printer.warn("The default coafile " +
-                                 repr(Constants.default_coafile) + " was not "
-                                 "found. Ignoring it.")
+                log_printer.warn("The default coafile {0!r} was not found. "
+                                 "You can generate a configuration from "
+                                 "command line options with the `--save` flag."
+                                 .format(Constants.default_coafile))
             else:
-                log_printer.err("The requested coafile " + repr(filename) +
-                                " does not exist.")
+                log_printer.err("The requested coafile {0!r} does not exist"
+                                ". You can generate it with `--save {0!r}`."
+                                .format(filename))
                 sys.exit(2)
 
         return {"default": Section("default")}
